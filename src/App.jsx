@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect, useRef } from "react";
+import "./App.scss";
+
+import Filter from "./components/filter";
+import Jobs from "./components/jobs";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [dataJobs, setDataJobs] = useState([]);
+  const [filter, setFilter] = useState([]);
+
+  const fetchJobs = async () => {
+    const response = await fetch("./data.json");
+    const data = await response.json();
+    setDataJobs(data);
+  };
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  function filterFunc(dataJobs) {
+    const tags = [dataJobs.role, dataJobs.level, ...dataJobs.tools, ...dataJobs.languages];
+
+    if (filter.length === 0) return tags;
+
+    return filter.every((item) => tags.includes(item));
+  }
+
+  const filteredJobs = dataJobs.filter(filterFunc);
+
+  const job = filteredJobs.map((item) => {
+    return <Jobs key={item.id} {...item} filter={filter} setFilter={setFilter} />;
+  });
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header className="header"></header>
+      <main>
+        <div className="filter__container">
+          {/*  */}
+          {filter.length !== 0 && <Filter filter={filter} setFilter={setFilter} />}
+        </div>
+
+        <div className="jobs__container">
+          <ul className="job__list">{job}</ul>
+        </div>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
