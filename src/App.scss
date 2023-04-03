@@ -1,0 +1,31 @@
+@use "./scss/utils/variables" as *;
+
+.App {
+  background-color: hsl(var(--Neutral-200));
+}
+
+.header {
+  height: 14vh;
+  background-color: hsl(var(--Primary-100));
+  background-image: url(./images/bg-header-mobile.svg);
+  background-repeat: repeat-x;
+}
+
+main {
+  transform: translateY(-1.3%);
+  width: min(90%, 1000px);
+  margin-inline: auto;
+
+  .jobs__container {
+    margin-top: 3rem;
+
+    .job__list {
+      display: grid;
+      gap: 3rem;
+
+      @include breakpoint(large) {
+        gap: 1.5rem;
+      }
+    }
+  }
+}

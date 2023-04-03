@@ -1,0 +1,33 @@
+@use "sass:math";
+
+:root {
+  // primary colors
+
+  --Primary-100: 180 29% 50%;
+
+  // neurtal colors
+
+  --Neutral-100: 180 52% 96%;
+  --Neutral-200: 180 31% 95%;
+  --Neutral-300: 180 8% 52%;
+  --Neutral-400: 180 14% 20%;
+}
+
+// Source: https://css-tricks.com/snippets/sass/px-to-em-functions/
+@function rem($pixels, $context: 16) {
+  @return (math.div($pixels, $context)) * 1rem;
+}
+
+// mobile first
+// 800px px, 950px, 1400px
+$breakpoints-up: (
+  "medium": "50em",
+  "large": "59.375em",
+  "xlarge": "87.5em",
+);
+
+@mixin breakpoint($size) {
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}

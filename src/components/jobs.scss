@@ -1,0 +1,149 @@
+@use "../scss/utils/variables" as *;
+
+.job__item {
+  padding-inline: 1em;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  //   outline: 1px solid red;
+  position: relative;
+  box-shadow: 0px 8px 22px -9px hsl(var(--Primary-100));
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 0.3rem;
+
+  @include breakpoint(medium) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @include breakpoint(large) {
+    padding-top: 1rem;
+    padding-inline: 2em;
+  }
+
+  &.new {
+    border-left: rem(5) solid hsl(var(--Primary-100));
+  }
+
+  .job__info--container {
+    //
+    @include breakpoint(large) {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .company-logo {
+      position: absolute;
+      aspect-ratio: 1 / 1;
+      transform: translateY(-50%);
+      width: 3rem;
+      top: 0;
+
+      @include breakpoint(large) {
+        transform: translateY(0);
+        position: relative;
+        width: 4.5rem;
+      }
+    }
+
+    .job__position--container {
+      //
+      .company-name {
+        color: hsl(var(--Primary-100));
+        font-weight: 700;
+        margin-right: 1.4em;
+
+        @include breakpoint(large) {
+          font-size: 1rem;
+        }
+      }
+
+      .new-job,
+      .featured-job {
+        border-radius: rem(100);
+        padding-inline: 0.7em;
+        padding-top: 0.5em;
+        padding-bottom: 0.3em;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: hsl(var(--Neutral-100));
+      }
+
+      .new-job {
+        margin-right: 0.5em;
+        background-color: hsl(var(--Primary-100));
+      }
+
+      .featured-job {
+        background-color: hsl(var(--Neutral-400));
+      }
+
+      .job-title {
+        margin-top: 0.8em;
+        color: hsl(var(--Neutral-400));
+        font-size: 0.9375rem;
+        font-size: clamp(0.9375rem, 0.5357142857142857rem + 1.7142857142857144vw, 1.5rem);
+        cursor: pointer;
+
+        @include breakpoint(large) {
+          line-height: 0;
+        }
+
+        &:hover {
+          color: hsl(var(--Primary-100));
+        }
+      }
+
+      .more-info {
+        color: hsl(var(--Neutral-300));
+        > * + * {
+          margin-left: 1em;
+
+          &::before {
+            content: "•";
+            position: relative;
+
+            right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .job__role--container {
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: rem(1.99) solid hsl(var(--Neutral-300) / 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+
+    @include breakpoint(medium) {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .filter-item {
+      color: hsl(var(--Primary-100));
+      background-color: hsl(var(--Neutral-100));
+      font-weight: 700;
+      padding-inline: 0.5em;
+      padding-top: 0.2em;
+      padding-bottom: 0.1em;
+      border-radius: 0.2rem;
+      cursor: pointer;
+
+      @include breakpoint(large) {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        color: hsl(var(--Neutral-100));
+        background-color: hsl(var(--Primary-100));
+      }
+    }
+  }
+}
